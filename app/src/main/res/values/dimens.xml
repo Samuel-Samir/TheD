@@ -10,5 +10,7 @@
     <dimen name="d85">85dp</dimen>
     <dimen name="defaultIconSize">150dp</dimen>
     <dimen name="larg_text_size">30sp</dimen>
+    <item name="detail_body_line_spacing_multiplier" format="float" type="fraction">1.25</item>
+
 
 </resources>

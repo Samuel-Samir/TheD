@@ -2,6 +2,8 @@ package samuel.example.com.thed.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import java.util.List;
 
 import samuel.example.com.thed.R;
 import samuel.example.com.thed.model.Product;
+import samuel.example.com.thed.ui.fragment.ProductDetailsFragment;
 
 /**
  * Created by samuel on 5/30/2017.
@@ -43,7 +46,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapterHolder holder, int position) {
-        Product product = productList.get(position);
+        final Product product = productList.get(position);
         holder.productPrice.setText("$"+product.getPrice().toString());
         holder.productDescription.setText(product.getProductDescription());
         String imageUrl = product.getImage().getLink();
@@ -54,13 +57,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
           holder.productImage.getLayoutParams().height =  dpHeightInPx;
           holder.productImage.getLayoutParams().width =   dpWidthInPx;
 
-
         Picasso.with(myActivity)
                 .load(imageUrl)
               /*  .placeholder(R.drawable.p1)
                 .error(R.drawable.p1)*/
                 .into(holder.productImage);
 
+        holder.productDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
+                Bundle bundle =new Bundle();
+                bundle.putParcelable("sasa",product);
+                productDetailsFragment.setArguments(bundle);
+                ((FragmentActivity)myActivity).getSupportFragmentManager()
+                        .beginTransaction().addToBackStack("displayPhotoFragment").replace(R.id.container ,productDetailsFragment)
+                        .commit();
+            }
+        });
     }
 
     @Override

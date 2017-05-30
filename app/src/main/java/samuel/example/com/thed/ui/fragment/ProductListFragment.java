@@ -3,6 +3,7 @@ package samuel.example.com.thed.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class ProductListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
          final View rootView = inflater.inflate(R.layout.fragment_product_list, container, false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<ProductResponse> call =apiService.getProduct();
         call.enqueue(new Callback<ProductResponse>() {

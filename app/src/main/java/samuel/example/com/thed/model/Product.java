@@ -1,12 +1,15 @@
 package samuel.example.com.thed.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by samuel on 5/30/2017.
  */
 
-public class Product {
+public class Product implements Parcelable{
     @SerializedName("id")
     private Integer id;
     @SerializedName("name")
@@ -25,6 +28,23 @@ public class Product {
         this.image = image;
         this.price = price;
     }
+
+    protected Product(Parcel in) {
+        name = in.readString();
+        productDescription = in.readString();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public Integer getId() {
         return id;
@@ -64,5 +84,16 @@ public class Product {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(productDescription);
     }
 }
