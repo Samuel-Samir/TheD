@@ -21,6 +21,7 @@ public class Product implements Parcelable{
     @SerializedName("price")
     private Double price;
 
+    public Product (){}
     public Product(Integer id, String name, String productDescription, Image image, Double price) {
         this.id = id;
         this.name = name;

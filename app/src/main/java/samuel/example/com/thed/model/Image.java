@@ -14,6 +14,7 @@ public class Image {
     @SerializedName("width")
     private Integer width ;
 
+    public Image (){};
     public Image(String link, Integer height, Integer width) {
         this.link = link;
         this.height = height;
