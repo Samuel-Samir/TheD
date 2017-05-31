@@ -1,11 +1,10 @@
-package samuel.example.com.thed.ui.adapter;
+package samuel.example.com.thed;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import samuel.example.com.thed.R;
 import samuel.example.com.thed.model.Product;
-import samuel.example.com.thed.ui.fragment.ProductDetailsFragment;
+import samuel.example.com.thed.view.ProductDetailsFragment;
 
 /**
  * Created by samuel on 5/30/2017.

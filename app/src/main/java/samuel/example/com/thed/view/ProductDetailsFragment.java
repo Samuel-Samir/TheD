@@ -1,4 +1,4 @@
-package samuel.example.com.thed.ui.fragment;
+package samuel.example.com.thed.view;
 
 
 import android.graphics.Bitmap;
