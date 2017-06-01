@@ -8,7 +8,7 @@ import samuel.example.com.thed.model.Product;
  * Created by samuel on 5/31/2017.
  */
 
-public interface ProductLIstView extends  MvpView {
+public interface ProductLIstView  {
 
     void showProductList (List<Product> productList);
     void CallGetDataFromDb ();

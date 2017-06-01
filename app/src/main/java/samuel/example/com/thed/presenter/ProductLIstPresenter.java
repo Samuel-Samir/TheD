@@ -3,9 +3,7 @@ package samuel.example.com.thed.presenter;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import samuel.example.com.thed.ProductAdapter;
 import samuel.example.com.thed.model.ApiInterface;
 import samuel.example.com.thed.model.Image;
 import samuel.example.com.thed.model.Product;
@@ -30,7 +27,6 @@ import static android.os.Looper.getMainLooper;
  */
 
 public class ProductLIstPresenter implements Presenter<ProductLIstView>{
-    public static String TAG = "ProductLIstPresenter";
 
     private ProductLIstView  productLIstView;
     private Subscription subscription;
