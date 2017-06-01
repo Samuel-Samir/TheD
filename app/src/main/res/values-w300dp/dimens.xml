@@ -10,6 +10,9 @@
     <dimen name="d69">69dp</dimen>
 
     <dimen name="coordinator_Layout_height">250dp</dimen>
+    <dimen name="coordinator_Layout_height2">200dp</dimen>
+    <dimen name="detail_text_size2">24sp</dimen>
+
     <dimen name="defaultIconSize">150dp</dimen>
 
     <dimen name="detail_text_size">18sp</dimen>

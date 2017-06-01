@@ -4,6 +4,7 @@ package samuel.example.com.thed.view;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,10 +39,15 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
     private ProductLIstPresenter presenter;
     private List<Product> productList ;
     public static final String SAVE_INSTANCESTATE_ARGUMENT ="response";
+    public static final String BUNDLE_ARGUMENT ="bundle";
+    public static final String PRODUCT_FRAGMENT ="ProductListFragment";
+    public static final String PRODUCT_FRAGMENT_TAG ="ProductListFragmentTag";
 
-    ;
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,12 +66,16 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
         productAdapter.setRecyclerViewCallback(new ProductAdapter.RecyclerViewCallback() {
             @Override
             public void onItemClick(int position) {
+
                 ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
                 Bundle bundle =new Bundle();
-                bundle.putParcelable("sasa",productList.get(position));
+                bundle.putParcelable(BUNDLE_ARGUMENT,productList.get(position));
                 productDetailsFragment.setArguments(bundle);
-                ((FragmentActivity)getActivity()).getSupportFragmentManager()
-                        .beginTransaction().addToBackStack("displayPhotoFragment").replace(R.id.container ,productDetailsFragment)
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container ,productDetailsFragment ,PRODUCT_FRAGMENT)
+                        .addToBackStack(PRODUCT_FRAGMENT_TAG)
                         .commit();
             }
         });
@@ -78,7 +88,7 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
         else if (savedInstanceState!=null){
 
             ProductResponse productResponse ;
-            productResponse =  (ProductResponse) savedInstanceState.getParcelable(SAVE_INSTANCESTATE_ARGUMENT);
+            productResponse =   savedInstanceState.getParcelable(SAVE_INSTANCESTATE_ARGUMENT);
             if(productResponse.getData()!=null)
             {
                 productList = productResponse.getData();
@@ -94,25 +104,16 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
         int portrait= 2;
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        int widthPixels = metrics.widthPixels;
-        int heightPixels = metrics.heightPixels;
-        if (widthPixels>=1023 || heightPixels>=1023)
-        {
-            landScape=4;
-            portrait=3;
-        }
-
         if(orientation == Configuration.ORIENTATION_PORTRAIT){
             StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(portrait, StaggeredGridLayoutManager.VERTICAL);
             mRecyclerView.setLayoutManager(sglm);
-            mRecyclerView.setAdapter(productAdapter);
         }
         else if(orientation == Configuration.ORIENTATION_LANDSCAPE){
             StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(landScape, StaggeredGridLayoutManager.VERTICAL);
             mRecyclerView.setLayoutManager(sglm);
-            mRecyclerView.setAdapter(productAdapter);
         }
+        mRecyclerView.setAdapter(productAdapter);
+
     }
     @Override
     public void onRefresh() {

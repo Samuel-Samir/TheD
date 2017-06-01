@@ -33,9 +33,7 @@ public class ProductDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_product_details, container, false);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        ActionBar actionBar =((AppCompatActivity)getActivity()). getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+       ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.collapsing_toolbar);
         productDescription = (TextView)rootView.findViewById(R.id.product_description);
         productPhoto = (ImageView) rootView.findViewById(R.id.profile_image) ;
@@ -43,7 +41,7 @@ public class ProductDetailsFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null)
         {
-            product = (Product) arguments.getParcelable("sasa");
+            product = (Product) arguments.getParcelable(ProductListFragment.BUNDLE_ARGUMENT);
             if (product!=null)
             {
                 collapsingToolbarLayout.setTitle(product.getName());
@@ -59,6 +57,7 @@ public class ProductDetailsFragment extends Fragment {
 
         return  rootView ;
     }
+
 
 
 
