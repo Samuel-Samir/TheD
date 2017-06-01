@@ -4,7 +4,6 @@ package samuel.example.com.thed.view;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -44,10 +43,7 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
     public static final String PRODUCT_FRAGMENT_TAG ="ProductListFragmentTag";
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -117,20 +113,22 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
     }
     @Override
     public void onRefresh() {
-        Log.e("sasas - > " , "5");
         swipeRefreshLayout.setRefreshing(true);
         presenter.loadProductList();
     }
 
-    @Override
-    public void showProductList(List<Product> productList) {
+    public void addDataToRecyclerView (List<Product> productList)
+    {
         this.productList = productList ;
         productAdapter.setApiResponse(productList );
-
         swipeRefreshLayout.setRefreshing(false);
+    }
+    @Override
+    public void showProductList(List<Product> productList) {
 
+        addDataToRecyclerView(productList);
         ProductDbHelper productDbHelper = new ProductDbHelper(getContext());
-        // presenter.addDataListToDB(productList ,productDbHelper);
+        presenter.addDataListToDB(productList ,productDbHelper);
     }
 
     @Override
@@ -148,7 +146,7 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getContext() , "Data base empty" ,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext() , getResources().getString(R.string.error),Toast.LENGTH_SHORT).show();
                     swipeRefreshLayout.setRefreshing(false);
                 }
             });
@@ -158,7 +156,8 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    showProductList(productList);
+                    addDataToRecyclerView(productList);
+
                 }
             });
         }

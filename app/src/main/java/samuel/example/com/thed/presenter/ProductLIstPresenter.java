@@ -132,27 +132,28 @@ public class ProductLIstPresenter implements Presenter<ProductLIstView>{
 
     public void addDataListToDB (final List<Product> products , final ProductDbHelper productDbHelper)
     {
+
         Thread thread = new Thread() {
             @Override
             public void run() {
                 SQLiteDatabase sqLiteDatabase = productDbHelper.getWritableDatabase();
-                long index ;
-                for (int i=0 ; i<products.size();i++)
-                {
-                    Product product = products.get(i);
-                    ContentValues cv = new ContentValues();
-                    cv.put(ProductContract.ProductEntry.COLUMN_Product_NAME, product.getName());
-                    cv.put(ProductContract.ProductEntry.COLUMN_Product_DESCRIPTION, product.getProductDescription());
-                    cv.put(ProductContract.ProductEntry.COLUMN_Product_PRICE, product.getPrice());
-                    cv.put(ProductContract.ProductEntry.COLUMN_PHOTO_LINK,  product.getImage().getLink());
-                    cv.put(ProductContract.ProductEntry.COLUMN_PHOTO_WIDTH, product.getImage().getWidth());
-                    cv.put(ProductContract.ProductEntry.COLUMN_PHOTO_HEIGH, product.getImage().getHeight());
-                    index = sqLiteDatabase.insert(ProductContract.ProductEntry.TABLE_NAME, null, cv);
-                    Log.d("db_index = " , String.valueOf(index));
+                sqLiteDatabase.delete(ProductContract.ProductEntry.TABLE_NAME, null, null);
 
+                    long index;
+                    for (int i = 0; i < products.size(); i++) {
+                        Product product = products.get(i);
+                        ContentValues cv = new ContentValues();
+                        cv.put(ProductContract.ProductEntry.COLUMN_Product_NAME, product.getName());
+                        cv.put(ProductContract.ProductEntry.COLUMN_Product_DESCRIPTION, product.getProductDescription());
+                        cv.put(ProductContract.ProductEntry.COLUMN_Product_PRICE, product.getPrice());
+                        cv.put(ProductContract.ProductEntry.COLUMN_PHOTO_LINK, product.getImage().getLink());
+                        cv.put(ProductContract.ProductEntry.COLUMN_PHOTO_WIDTH, product.getImage().getWidth());
+                        cv.put(ProductContract.ProductEntry.COLUMN_PHOTO_HEIGH, product.getImage().getHeight());
+                        index = sqLiteDatabase.insert(ProductContract.ProductEntry.TABLE_NAME, null, cv);
+                        Log.d("db_index = ", String.valueOf(index));
+
+                    }
                 }
-
-            }
         };
         thread.start();
     }
