@@ -5,13 +5,11 @@ package samuel.example.com.thed.view;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +20,9 @@ import java.util.List;
 
 
 import samuel.example.com.thed.R;
-import samuel.example.com.thed.model.Product;
-import samuel.example.com.thed.model.ProductResponse;
+import samuel.example.com.thed.model.NetworkChangeReceiver;
+import samuel.example.com.thed.model.container.Product;
+import samuel.example.com.thed.model.container.ProductResponse;
 import samuel.example.com.thed.model.dataBase.ProductDbHelper;
 import samuel.example.com.thed.ProductAdapter;
 import samuel.example.com.thed.presenter.ProductLIstPresenter;
@@ -73,6 +72,13 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
                         .replace(R.id.container ,productDetailsFragment ,PRODUCT_FRAGMENT)
                         .addToBackStack(PRODUCT_FRAGMENT_TAG)
                         .commit();
+            }
+        });
+
+        NetworkChangeReceiver.setNetworkAvailable(new NetworkChangeReceiver.NetworkAvailable() {
+            @Override
+            public void networkIsAvailable() {
+               onRefresh();
             }
         });
 
@@ -146,7 +152,7 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getContext() , getResources().getString(R.string.error),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext() , getResources().getString(R.string.error),Toast.LENGTH_LONG).show();
                     swipeRefreshLayout.setRefreshing(false);
                 }
             });

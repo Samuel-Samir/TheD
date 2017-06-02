@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import samuel.example.com.thed.model.Product;
+import samuel.example.com.thed.model.container.Product;
 
 /**
  * Created by samuel on 5/30/2017.

@@ -4,7 +4,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import samuel.example.com.thed.model.ProductResponse;
+import samuel.example.com.thed.model.container.ProductResponse;
 
 /**
  * Created by samuel on 5/30/2017.

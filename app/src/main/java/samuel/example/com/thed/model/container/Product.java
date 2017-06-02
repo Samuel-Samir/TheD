@@ -1,4 +1,4 @@
-package samuel.example.com.thed.model;
+package samuel.example.com.thed.model.container;
 
 import android.os.Parcel;
 import android.os.Parcelable;

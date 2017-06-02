@@ -5,7 +5,6 @@ package samuel.example.com.thed.view;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +15,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import samuel.example.com.thed.R;
-import samuel.example.com.thed.model.Image;
-import samuel.example.com.thed.model.Product;
+import samuel.example.com.thed.model.container.Product;
 
 
 public class ProductDetailsFragment extends Fragment {
