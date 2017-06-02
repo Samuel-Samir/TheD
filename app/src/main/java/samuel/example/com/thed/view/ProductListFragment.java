@@ -5,6 +5,7 @@ package samuel.example.com.thed.view;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -67,11 +68,14 @@ public class ProductListFragment extends Fragment implements SwipeRefreshLayout.
                 bundle.putParcelable(BUNDLE_ARGUMENT,productList.get(position));
                 productDetailsFragment.setArguments(bundle);
 
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.container ,productDetailsFragment ,PRODUCT_FRAGMENT)
+
+                FragmentTransaction mfragmentTransaction = getFragmentManager().beginTransaction();
+                mfragmentTransaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);
+
+                mfragmentTransaction.replace(R.id.container ,productDetailsFragment ,PRODUCT_FRAGMENT)
                         .addToBackStack(PRODUCT_FRAGMENT_TAG)
                         .commit();
+
             }
         });
 
