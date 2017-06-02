@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import samuel.example.com.thed.model.container.Product;
+import samuel.example.com.thed.view.AnimationUtil;
 
 /**
  * Created by samuel on 5/30/2017.
@@ -22,6 +23,7 @@ import samuel.example.com.thed.model.container.Product;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.RecyclerViewAdapterHolder>{
     private  List<Product> productList ;
     private RecyclerViewCallback  recyclerViewCallback;
+    private int previousPosition = 0;
 
     public void setApiResponse (List<Product> productList )
     {
@@ -61,6 +63,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Recycler
               /*  .placeholder(R.drawable.p1)
                 .error(R.drawable.p1)*/
                 .into(holder.productImage);
+
+        if(position > previousPosition){ // We are scrolling DOWN
+
+            AnimationUtil.animate(holder, true);
+
+        }else{ // We are scrolling UP
+
+            AnimationUtil.animate(holder, false);
+
+
+        }
+        previousPosition = position;
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
